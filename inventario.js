@@ -1,3 +1,4 @@
+// Ingresar roductos en objeto
 var productos = [
   { id: 1, nombre: "Laptop Pro 15", precio: 1200.00, categoria: "Tecnología", stock: 15 },
   { id: 2, nombre: "Smartphone 5G", precio: 799.99, categoria: "Tecnología", stock: 30 },
@@ -26,6 +27,57 @@ var productos = [
   { id: 25, nombre: "Trípode para Celular", precio: 18.50, categoria: "Accesorios", stock: 50 }
 ];
 
-productos.forEach(function(elem, i){
-    console.log(`arrayMixto[${i}] = ${elem}`)
+
+// .forEach
+console.log("tradicional");
+productos.forEach(function(producto) {
+    console.log("ID: " + producto.id + "  Nombre: "+ producto.nombre + "  Precio: " + producto.precio + "  Categoria: " + producto.categoria + "  Stock: " + producto.stock );
 });
+
+// Sintaxis de Función Flecha
+console.log("flecha");
+productos.forEach(producto => console.log(`ID: ${producto.id}  Nombre: ${producto.nombre} Precio: ${producto.precio}  Categoria: ${producto.categoria}  Stock: ${producto.stock}`));
+
+
+console.log(".map");
+var etiquetas = productos.map(function(producto) {
+    return `PRODUCTO: [${producto.nombre}] - $${producto.precio}`;
+});
+
+console.log(etiquetas);
+
+
+console.log(".filter");
+var tecnologiaDisponible = productos.filter(function(producto) {
+    return producto.categoria === "Tecnología" && producto.stock > 0;
+});
+console.log(tecnologiaDisponible);
+
+
+console.log(".find");
+var productoEncontrado = productos.find(function(producto) {
+    return producto.id === 4;
+});
+console.log(productoEncontrado);
+
+
+console.log(".reduce");
+
+var valorTotalInventario = productos.reduce(function(acumulador, producto) {
+    return acumulador + (producto.precio * producto.stock);
+}, 0);
+console.log(`Valor monetario total del stock: $${valorTotalInventario.toFixed(2)}`);
+
+
+console.log(".some");
+
+var tieneProductoCaro = productos.some(function(producto) {
+    return producto.precio > 500;
+});
+console.log(`¿Existe algún producto de más de $500?: ${tieneProductoCaro}`);
+
+productos[0].imprimirNombreArrow = () => {
+    console.log(`Mi nombre usando Arrow: ${this.nombre}`);
+};
+
+productos[0].imprimirNombreArrow();
